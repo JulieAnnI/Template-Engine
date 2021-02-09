@@ -29,7 +29,7 @@
   
   ## Credits
   
-    Thank you to my instructor and TAs whose guidance and lessons make all of my project possible. Thank you to my fellow peers who also provide inpirations and encouragement. 
+  Thank you to my instructor and TAs whose guidance and lessons make all of my project possible. Thank you to my fellow peers who also provide inpirations and encouragement. 
   
   ## Contributing 
   
