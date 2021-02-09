@@ -11,8 +11,7 @@ const ADD = "Add Team Member", EXIT = "Exit";
 const render = require("./lib/htmlRenderer");
 const { exit } = require("process");
 
-
-init();
+let employeeList = [];
 
 //Initialize Function
 async function generatorPrompt() {
@@ -88,20 +87,21 @@ async function add() {
     }
 }
 
+//Initialize function
 async function init() {
+    try {
         
-    const responses = await inquirer.prompt(questions);
+        await generatorPrompt();
+        const html = render(employeeList);
+        fs.writeFileSync(outputPath, html);
+        console.log("Created Team!")
         
-    let team = [];
-
-
-
-
-        const readMe = generateMarkdown(responses)
-        await writeFileAsync("README.md", readMe);
-    
+    } catch (error){
+        console.log(error);
+    }
 };
 
+init();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
