@@ -17,13 +17,15 @@
   
   ## Installation
   
-  To use this application, clone the repo to a folder of your choosing. Once you have navigated to that folder please install Inqurier using the command "npm install inqurier" in the same folder. If you would like to run the provided tests, please install Jest by running the command "npm install jest". After install, run command "npm start" within the same folder. This will automatically trigger the application. 
+  To use this application, fork this repository, then download it to a folder of your choosing. Make sure you have [Node](https://nodejs.org/en/) installed to your operating system. Once you have navigated to that folder please install [Inqurier](https://www.npmjs.com/package/inquirer) using the command "npm install inqurier" in the application folder. If you would like to run the provided tests, please install [Jest](https://jestjs.io/) by running the command "npm install jest". After install, run command "npm start" within the same folder. This will automatically trigger the application. 
   
   ## Usage
   
   The application prompts user for information about the team manager and team members. The user can input any number of team members, a mix of enginers and inters. Once they have completed building the team, an HTML file will be created in the "output" folder that displays a nicely formatted team roster based on the information provided by the user. This can be used in any job that requires you to work as a part of a team. It gives all team members a convient place that they can see who is on their team and have easy access on how to contact all their fellow team members. I can even see this application being used in schools for students working on project together!
 
+  Click [here](https://drive.google.com/file/d/1DCHuDLvJ4umnpLnNT-vZPj0MDDJ2wqPV/view?usp=sharing) to see a demo of the application!
   
+  ![image1](images/image1.png)
   
   ## Credits
   
