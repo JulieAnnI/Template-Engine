@@ -1,46 +1,21 @@
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+const Employee = require("./lib/Employee");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-const ADD = "Add Team Member", EXIT = "Exit";
 const render = require("./lib/htmlRenderer");
-const { exit } = require("process");
 
 let employeeList = [];
 
-//Initialize Function
-async function generatorPrompt() {
-console.log("Team Generator Main Menu");
-    try {
-        let answer = await inquirer.prompt({
-            name: "addOrExit",
-            type: "list",
-            message: "Would you like to add a Team Member or Exit?",
-            choices: [ADD, EXIT]
-        });
 
-        switch (answer.addOrExit) {
-
-            case ADD:
-                return add();
-            case EXIT:
-                return exit();
-
-        }
-    } catch (error) {
-        throw error;
-    }
-}
 //Add Team Member
-async function add() {
+async function addMember() {
     console.log("Add Team Member")
-    try {
-        let answer = await inquirer.prompt([
+        const answer = await inquirer.prompt([
             {
                 type:"input",
                 name: "name",
@@ -59,12 +34,12 @@ async function add() {
             {
                 type:"list",
                 name: "role",
-                message: "What is your role?",
+                message: "Select your role.",
                 choices: ["Manager", "Engineer", "Intern"]
             },
             {
                 type: "input",
-                name: "github",
+                name: "gitHub",
                 message: "Enter the employee's GitHub username.",
                 when: answer => answer.role === "Engineer"
             },
@@ -79,19 +54,48 @@ async function add() {
                 name: "school",
                 message: "Enter the employee's school.",
                 when: answer => answer.role === "Intern"
+            },
+            { 
+                type: "confirm",
+                name: "new",
+                message: "Would you like to enter another new Employee?",
             }
 
         ]);
-    } catch (error) {
-        throw error;
+        
+    function renderTeam() {
+        if (answer.role === "Engineer") {
+            const engineer = new Engineer(answer.name, answer.id, answer.email, answer.gitHub)
+            employeeList.push(engineer);
+        }
+        else if (answer.role === "Manager") {
+            const manager = new Manager(answer.name, answer.id, answer.email, answer.officeNumber)
+            employeeList.push(manager)
+        }
+        else if (answer.role === "Intern") {
+            const intern = new Intern(answer.name, answer.id, answer.email, answer.school)
+            employeeList.push(intern)
+        }
+        else {
+            throw new Error("Your role is not defined.")
+        }
+        if (answer.new) {
+       
+            return addMember();
+
+        }
     }
+
+    return renderTeam();
 }
+
+
 
 //Initialize function
 async function init() {
     try {
         
-        await generatorPrompt();
+        await addMember();
         const html = render(employeeList);
         fs.writeFileSync(outputPath, html);
         console.log("Created Team!")
